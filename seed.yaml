@@ -1,0 +1,18 @@
+# ---------------------------------------
+# MapProxy example seeding configuration.
+# ---------------------------------------
+#
+# This is a minimal MapProxy seeding configuration.
+# See full_seed_example.yaml and the documentation for more options.
+#
+seeds:
+  osm:
+    caches: [osm_cache]
+    coverage:
+      datasource: 'niedersachsen.geojson'
+      srs: 'EPSG:4326'
+    levels:
+      from: 10
+      to: 16
+    refresh_before:
+      time: 2013-10-10T12:35:00
