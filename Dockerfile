@@ -11,7 +11,7 @@ RUN pip install MapProxy
 
 ADD mapproxy.yaml mapproxy.yaml
 ADD niedersachsen.geojson niedersachsen.geojson
-
+ADD seed.yaml seed.yaml
 ADD run /usr/local/bin/run
 #RUN mapproxy-util serve-develop mapproxy.yaml
 CMD mapproxy-util serve-develop mapproxy.yaml
