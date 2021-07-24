@@ -1,26 +1,6 @@
 # -------------------------------
 # MapProxy example configuration.
-# -------------------------------
-#
-# This is a minimal MapProxy configuration.
-# See full_example.yaml and the documentation for more options.
-#
 
-# Starts the following services:
-# Demo:
-#     http://localhost:8080/demo
-# WMS:
-#     capabilities: http://localhost:8080/service?REQUEST=GetCapabilities
-# WMTS:
-#     capabilities: http://localhost:8080/wmts/1.0.0/WMTSCapabilities.xml
-#     first tile: http://localhost:8080/wmts/osm/webmercator/0/0/0.png
-# Tile service (compatible with OSM/etc.)
-#     first tile: http://localhost:8080/tiles/osm/webmercator/0/0/0.png
-# TMS:
-#     note: TMS is not compatible with OSM/Google Maps/etc.
-#     first tile: http://localhost:8080/tms/1.0.0/osm/webmercator/0/0/0.png
-# KML:
-#     initial doc: http://localhost:8080/kml/osm/webmercator
 
 services:
   demo:
@@ -37,22 +17,56 @@ services:
       abstract: This is a minimal MapProxy example.
 
 layers:
-  - name: osm
-    title: Omniscale OSM WMS - osm.omniscale.net
-    sources: [osm_cache]
+  - name: dop_nds
+    title: DOP NDS
+    sources: [cache_dop_nds]
+  - name: dop_nrw
+    title: DOP NRW
+    sources: [cache_dop_nrw]
 
 caches:
-  osm_cache:
+  cache_dop_nds:
     grids: [webmercator]
-    sources: [osm_wms]
+    sources: [dop_nds]
+    cache:
+      type: file
+      directory: /tiles/cache_dop_nds
+  cache_dop_nrw:
+    grids: [webmercator]
+    sources: [dop_nrw]
+    cache:
+      type: file
+      directory: /tiles/cache_dop_nrw
+
+
 
 sources:
-  osm_wms:
+  dop_nds:
+    type: wms
+
+    coverage:
+      datasource: 'niedersachsen.geojson'
+      srs: 'EPSG:4326'
+      
+    req:
+      url: https://www.geobasisdaten.niedersachsen.de/doorman/noauth/wms_ni_dop
+      layers: dop20
+      transparent: true
+      
+  dop_bre:
     type: wms
     req:
-      url: https://maps.omniscale.net/v2/demo/style.default/service?
-      layers: osm
-
+      url: http://gdi1.geo.bremen.de/mapproxy/Apps4Bremen/service
+      layers: Orthophotos_2012
+      transparent: true
+      
+  dop_nrw:
+    type: wms
+    req: 
+      url: https://www.wms.nrw.de/geobasis/wms_nw_dop
+      layers: nw_dop_rgb
+      transparent: true
+     
 grids:
     webmercator:
         base: GLOBAL_WEBMERCATOR
