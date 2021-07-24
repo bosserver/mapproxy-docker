@@ -12,3 +12,10 @@ docker volume create mapproxy-tiles
 docker build -t mapproxy .
 
 docker run --rm --name mapproxy -it -d -p 8081:8080 -v mapproxy-tiles:/tiles_cache/ mapproxy
+
+
+
+preeheat with: 
+
+docker exec mapproxy mapproxy-seed -f mapproxy.yaml -c 4 seed.yaml
+
