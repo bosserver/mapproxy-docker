@@ -7,7 +7,7 @@
 #
 seeds:
   osm:
-    caches: [osm_cache]
+    caches: [cache_dop_nds]
     coverage:
       datasource: 'niedersachsen.geojson'
       srs: 'EPSG:4326'
