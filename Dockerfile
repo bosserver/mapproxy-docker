@@ -14,5 +14,5 @@ ADD niedersachsen.geojson niedersachsen.geojson
 ADD seed.yaml seed.yaml
 ADD run /usr/local/bin/run
 #RUN mapproxy-util serve-develop mapproxy.yaml
-CMD mapproxy-util serve-develop mapproxy.yaml
+CMD mapproxy-util serve-develop mapproxy.yaml -b 0.0.0.0:8080
 EXPOSE 8080
